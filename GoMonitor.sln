@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoMonitor", "GoMonitor\GoMonitor.csproj", "{96C8F7DB-962E-43D7-B42C-B2CFFA452055}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoMonitor-tests", "tests\GoMonitor-tests\GoMonitor-tests.csproj", "{4432C9FE-A970-4B81-AB7B-0ECF19B3D630}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{96C8F7DB-962E-43D7-B42C-B2CFFA452055}.Debug|x86.Build.0 = Debug|x86
 		{96C8F7DB-962E-43D7-B42C-B2CFFA452055}.Release|x86.ActiveCfg = Release|x86
 		{96C8F7DB-962E-43D7-B42C-B2CFFA452055}.Release|x86.Build.0 = Release|x86
+		{4432C9FE-A970-4B81-AB7B-0ECF19B3D630}.Debug|x86.ActiveCfg = Debug|x86
+		{4432C9FE-A970-4B81-AB7B-0ECF19B3D630}.Debug|x86.Build.0 = Debug|x86
+		{4432C9FE-A970-4B81-AB7B-0ECF19B3D630}.Release|x86.ActiveCfg = Release|x86
+		{4432C9FE-A970-4B81-AB7B-0ECF19B3D630}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
