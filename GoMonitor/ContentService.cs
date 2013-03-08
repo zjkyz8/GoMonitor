@@ -32,20 +32,18 @@ namespace GoMonitor
             {
                 var keys = item.Key.Split(new string[] {" :: "}, StringSplitOptions.RemoveEmptyEntries);
 
-                var job = new JobEntity();
-                if (keys.Length >= 1)
+                if (keys.Length >= 3)
                 {
+                    var job = new JobEntity();
                     job.PipeLineName = keys[0];
-                }
-                if(keys.Length>=2)
-                {
                     job.StageName = keys[1];
-                }
-                if(keys.Length>=3)
-                {
                     job.JobName = keys[2];
+                    job.LastBuildStatus = item.Value.Attributes["lastBuildStatus"].Value == "Success";
+                    job.IsBuilding = item.Value.Attributes["activity"].Value == "Building";
+                    job.StageFullName = string.Join("::", job.PipeLineName, job.StageName);
+
+                    jobs.Add(job);
                 }
-                jobs.Add(job);
             }
             return jobs;
         }
@@ -53,10 +51,16 @@ namespace GoMonitor
 
     public class JobEntity
     {
+        public string StageFullName { get; set; }
+
         public string PipeLineName { get; set; }
 
         public string StageName { get; set; }
 
         public string JobName { get; set; }
+
+        public bool LastBuildStatus { get; set; }
+
+        public bool IsBuilding { get; set; }
     }
 }
