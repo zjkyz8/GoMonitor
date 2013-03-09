@@ -8,7 +8,7 @@ namespace GoMonitor_tests
         [Test]
         public void should_return_list()
         {
-            var xmlNodeList = new ContentService().GetFormatedContent();
+//            var xmlNodeList = new ContentService().GetFormatedContent();
         }
     }
 }

@@ -1,24 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml;
 
 namespace GoMonitor
 {
     public class ContentService
     {
-        private readonly ContentProvider provider;
-        private readonly string fileName;
-        private readonly TabControl tabControl;
-
         public ContentService()
         {
-            provider = new ContentProvider();
-            fileName = provider.GetContent("http://10.18.7.153:8153/go/cctray.xml");
+            new ContentProvider();
         }
 
-        public IList<KeyValuePair<string, XmlNode>> GetFormatedContent()
+        public IList<KeyValuePair<string, XmlNode>> GetFormatedContent(string fileName)
         {
             var doc = new XmlDocument();
             doc.Load(fileName);

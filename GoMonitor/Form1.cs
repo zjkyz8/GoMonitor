@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -10,9 +9,19 @@ namespace GoMonitor
 {
     public partial class Form1 : Form
     {
+        private readonly LocalFileManager localFileManager;
+        private readonly ContentResourceGetter contentResourceGetter;
+        private readonly ContentService contentService;
+        private string currentFile = string.Empty;
+
         public Form1()
         {
+            contentService = new ContentService();
             InitializeComponent();
+            localFileManager = new LocalFileManager();
+            localFileManager.Start();
+            contentResourceGetter = new ContentResourceGetter();
+            contentResourceGetter.Start();
             contentChangeMonitor.RunWorkerAsync();
         }
 
@@ -24,12 +33,20 @@ namespace GoMonitor
 
         private void contentChangeMonitor_DoWork(object sender, DoWorkEventArgs e)
         {
-            var worker = sender as BackgroundWorker;
-            var contentService = new ContentService();
-            var formatedContent = contentService.GetFormatedContent();
-            var jobs = contentService.TranslateJobs(formatedContent);
-            worker.ReportProgress(0, jobs);
-            Thread.Sleep(5000);
+            while (true)
+            {
+                var newestFileName = localFileManager.GetNewestFileName();
+                if (!currentFile.Equals(newestFileName))
+                {
+                    var worker = sender as BackgroundWorker;
+                    var formatedContent = contentService.GetFormatedContent(newestFileName);
+                    var jobs = contentService.TranslateJobs(formatedContent);
+                    worker.ReportProgress(0, jobs);
+                    currentFile = newestFileName;
+                }
+                Thread.Sleep(5000);
+            }
+            
         }
    
         private void FillTabContent(IEnumerable<JobEntity> jobList)

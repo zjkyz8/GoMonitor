@@ -1,16 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 
 namespace GoMonitor
 {
     public class ContentProvider
     {
-        public string GetContent(string url)
+        public byte[] GetContent(string url)
         {
-            var fileName = GetFileName();
             using (var Client = new WebClient())
             {
-                Client.DownloadFile(url, fileName);
+                return Client.DownloadData(url);
+            }
+        }
+
+        public string WriteContent(byte[] content)
+        {
+            var fileName = GetFileName();
+            using(var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            {
+                fileStream.Write(content, 0, content.Length);
             }
             return fileName;
         }
